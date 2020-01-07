@@ -14,4 +14,4 @@ class ProductViewSet(viewsets.GenericViewSet,
             return Product.objects.all()
 
         return Product.objects.only(
-            'name', 'quantity', 'unit_value').all()
+            'id', 'name', 'quantity', 'unit_value').all()

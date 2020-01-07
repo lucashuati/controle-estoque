@@ -1,0 +1,30 @@
+.btn {
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 6px 10px;
+  background-color: $white;
+  border-color: $gray-light;
+  color: $black;
+  white-space: nowrap;
+}
+
+.btn-success {
+  background-color: $success;
+  border: 1px solid $success-dark;
+  color: $white;
+
+  &:hover {
+    background-color: $success-dark;
+  }
+}
+
+.btn-danger {
+  background-color: $danger;
+  border: 1px solid $danger-dark;
+  color: $white;
+
+  &:hover {
+    background-color: $danger-dark;
+  }
+}
