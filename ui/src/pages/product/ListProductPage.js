@@ -1,16 +1,17 @@
 import React, { useMemo, useReducer, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { get } from 'lodash';
 import Table from '../../components/common/table/Table';
 import ContainerPage from '../../components/common/Container';
 import ListProductReducer from '../../reducers/products/ListProductReducer';
-import fetchProducts from '../../services/product/fetch';
+import { fetchProducts } from '../../services/product/fetch';
 import Loading from '../../components/common/Loading';
 import Button from '../../components/common/Button';
 import deleteProduct from '../../services/product/delete';
 
 
-const ListProductPage = () => {
+const ListProductPage = ({ history }) => {
   const initalState = {
     products: [],
     fetchingProducts: false,
@@ -40,24 +41,22 @@ const ListProductPage = () => {
       },
       {
         Header: 'Valor Unitário',
-        accessor: 'unit_value',
-      },
-      {
-        Header: 'Valor Total',
-        accessor: 'total_value',
+        accessor: 'currency_unit_value',
       },
       {
         Header: 'Ações',
         accessor: 'id',
-        Cell: (row) => (
-          <>
-            <Button onClick={console.log} type="default">Editar</Button>
-            <Button onClick={() => handleRemoveProduct(get(row, 'cell.value'))} type="danger">Remover</Button>
-          </>
-        )
-        ,
+        Cell: (row) => {
+          const productId = get(row, 'cell.value');
+          return (
+            <>
+              <Button onClick={() => history.push(`/products/${productId}`)} type="default">Editar</Button>
+              <Button onClick={() => handleRemoveProduct(productId)} type="danger">Remover</Button>
+            </>
+          );
+        },
       },
-    ], [],
+    ], [history],
   );
 
   useEffect(() => {
@@ -77,7 +76,9 @@ const ListProductPage = () => {
     <ContainerPage title="Produtos">
       <Loading loading={state.fetchingProducts}>
         <>
-          <Button onClick={console.log}>Novo Produto</Button>
+          <div className="float-right">
+            <Button onClick={() => history.push('/products')}>Novo Produto</Button>
+          </div>
           {state.fetchProductsError ? (
             <p className="center">Ocorreu um erro ao carregar os produtos. Por favor, tente novamente</p>
           ) : <Table columns={columns} data={state.products} />}
@@ -85,6 +86,12 @@ const ListProductPage = () => {
       </Loading>
     </ContainerPage>
   );
+};
+
+ListProductPage.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 export default ListProductPage;

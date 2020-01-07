@@ -1,0 +1,18 @@
+.input-text {
+  padding-left: 20px;
+
+  .label {
+    margin-bottom: 0px;
+  }
+  .input {
+    margin-bottom: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 6px 10px;
+    background-color: $white;
+    border: 1px solid $gray-dark;
+    color: $black;
+    white-space: nowrap;
+  }
+}

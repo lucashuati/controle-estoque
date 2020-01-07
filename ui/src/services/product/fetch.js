@@ -1,7 +1,8 @@
 import Axios from 'axios';
 import { API_URL } from '../../consts';
 
-const fetchProducts = () => Axios.get(`${API_URL}/products`)
+export const fetchProducts = () => Axios.get(`${API_URL}/products`)
   .then((response) => response.data);
 
-export default fetchProducts;
+export const fetchProduct = (productId) => Axios.get(`${API_URL}/products/${productId}`)
+  .then((response) => response.data);

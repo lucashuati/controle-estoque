@@ -9,16 +9,7 @@ const Table = ({ columns, data }) => {
     getTableBodyProps,
     headerGroups,
     prepareRow,
-    page,
-    canPreviousPage,
-    canNextPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    nextPage,
-    previousPage,
-    setPageSize,
-    state: { pageIndex, pageSize },
+    rows,
   } = useTable(
     {
       columns,
@@ -41,7 +32,7 @@ const Table = ({ columns, data }) => {
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {page.map(
+          {rows.map(
             (row) => {
               prepareRow(row);
               return (
