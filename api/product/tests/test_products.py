@@ -28,9 +28,11 @@ class ProductSerializerTestCase(TestCase):
             unit_value=12.50,
         )
         cls.expected_serializer_data = {
+            'id': cls.product.pk,
             'name': 'DVD PLAYER',
             'quantity': 4,
-            'unit_value': 'R$ 12,50',
+            'unit_value': '12.50',
+            'currency_unit_value': 'R$ 12,50',
         }
 
     def test_serializer_should_format_data_corretly(self):
@@ -76,9 +78,11 @@ class ProductViewTestCase(TestCase):
             self.detail_url, data, content_type='application/json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertDictEqual(response.data, {
+            'id': Product.objects.get(name='UPDATED PRODUCT').pk,
             'name': 'UPDATED PRODUCT',
             'quantity': 20,
-            'unit_value': 'R$ 22,30',
+            'unit_value': '22.30',
+            'currency_unit_value': 'R$ 22,30',
         })
 
     def test_create_product(self):
@@ -91,7 +95,9 @@ class ProductViewTestCase(TestCase):
             self.list_url, data, content_type='application/json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertDictEqual(response.data, {
+            'id': Product.objects.get(name='NEW PRODUCT').pk,
             'name': 'NEW PRODUCT',
             'quantity': 20,
-            'unit_value': 'R$ 22,30',
+            'unit_value': '22.30',
+            'currency_unit_value': 'R$ 22,30',
         })

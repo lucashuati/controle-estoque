@@ -4,7 +4,7 @@ from base.fields import CurrencyField
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    unit_value = CurrencyField()
+    currency_unit_value = CurrencyField(source='unit_value', read_only=True)
 
     class Meta:
         model = Product
@@ -12,7 +12,8 @@ class ProductSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'quantity',
-            'unit_value'
+            'unit_value',
+            'currency_unit_value',
         ]
 
 
